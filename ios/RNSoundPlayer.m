@@ -18,12 +18,13 @@ RCT_EXPORT_METHOD(playUrl:(NSString *)url) {
         self.player = nil;
     }
     NSURL *soundURL = [NSURL URLWithString:url];
-    self.avPlayer = [[AVPlayer alloc] initWithURL:soundURL];
+    self.player = [[AVPlayer alloc] initWithURL:soundURL];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(itemDidFinishPlaying:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
 
     [self sendEventWithName:EVENT_FINISHED_LOADING body:@{@"success": [NSNumber numberWithBool:true]}];
     [self sendEventWithName:EVENT_FINISHED_LOADING_URL body: @{@"success": [NSNumber numberWithBool:true], @"url": url}];
-    [self.avPlayer play];
+    // [self.avPlayer play];
+    [self.player play];
 }
 
 RCT_EXPORT_METHOD(loadUrl:(NSString *)url) {
